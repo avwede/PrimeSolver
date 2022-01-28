@@ -1,0 +1,4 @@
+Execution Time: 442ms 
+Total Number of Primes Found: 5761456
+Sum of all Primes Found: 279209790387277
+Top 10 Maximum Primes: [99999787, 99999821, 99999827, 99999839, 99999847, 99999931, 99999941, 99999959, 99999971, 99999989]

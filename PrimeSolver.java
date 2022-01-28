@@ -3,30 +3,29 @@
 import java.util.*;
 import java.io.*;
 
+// This program uses multithreading to find the number of primes between 1 and 10^8.
 public class PrimeSolver extends Thread {
     public static final int max = 100_000_000; 
     public static final int numThreads = 8;
     public int threadID;
-
-    // This boolean array is used to construct the Sieve of Eratosthenes for prime numbers. 
     public static boolean sieve[] = new boolean[max + 1]; 
     public static ArrayList<PrimeSolver> threads = new ArrayList<>();
 
+    // Constructor to assign each thread a unique ID (0 to 7). 
     PrimeSolver(int threadID) {
         this.threadID = threadID;
     }
     
     // This method creates the Sieve of Eratosthenes. 
     public void run() {
-        sieve[0] = true;
-        sieve[1] = true;
-
         for (int i = 2 + this.threadID; i <= Math.sqrt(max); i += numThreads)
             if (sieve[i] == false)
                 for (int j = i * i; j <= max; j += i)
-                    sieve[j] = (true);
+                    sieve[j] = true;
     }
     
+    // This method goes through the completed sieve, and calculates the number of primes and the sum of all primes.
+    // It also produces an array of the top ten maximum primes, listed in order from lowest to highest.
     public static void countPrimes(long executionTime) throws IOException {
         long sumPrimes = 0;
         long numPrimes = 0;
@@ -52,9 +51,7 @@ public class PrimeSolver extends Thread {
         outputToFile(executionTime, numPrimes, sumPrimes, largestPrimes);
     }
 
-    // Output:
-    // <execution time> <total number of primes found> <sum of all primes found>
-    // <top ten maximum primes, listed in order from lowest to highest>      
+    // This method outputs the data to a text file named primeSummary.txt. 
     public static void outputToFile(long executionTime, long numPrimes, long sumPrimes, int[] largestPrimes) throws IOException {
         File f = new File("primeSummary.txt");
         f.createNewFile();
